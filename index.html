@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>French Essay Practice</title>
-  <!-- ✅ Use stable EmailJS v3 library -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <!-- ✅ EmailJS v4 -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -54,8 +54,10 @@
   </form>
 
   <script>
-    // ✅ Initialize EmailJS with your public key
-    emailjs.init('qQpxge7T4LewCp23A');
+    // ✅ Init EmailJS SDK v4
+    emailjs.init({
+      publicKey: 'qQpxge7T4LewCp23A'
+    });
 
     const form = document.getElementById('essayForm');
     const textarea = document.getElementById('essay');
