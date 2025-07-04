@@ -11,19 +11,30 @@
       margin: auto;
       padding: 20px;
     }
+
     textarea, input[type="text"] {
       width: 100%;
       padding: 10px;
       margin-bottom: 10px;
       font-size: 16px;
+      box-sizing: border-box;
     }
+
+    textarea {
+      min-height: 250px;
+      resize: vertical;
+    }
+
     .counter {
       font-weight: bold;
       margin-bottom: 10px;
     }
+
     .alert {
       color: red;
+      font-weight: bold;
     }
+
     button {
       padding: 10px 20px;
       font-size: 16px;
@@ -49,12 +60,18 @@
     const wordCount = document.getElementById('wordCount');
     const alertDiv = document.getElementById('alert');
 
+    function countWords(text) {
+      return text.trim().split(/\s+/).filter(word => word.length > 0).length;
+    }
+
     textarea.addEventListener('input', () => {
-      const words = textarea.value.trim().split(/\s+/).filter(Boolean);
-      wordCount.textContent = `${words.length} mots`;
+      const text = textarea.value;
+      const count = countWords(text);
+
+      wordCount.textContent = `${count} mots`;
 
       // Show alert only if word count exceeds 125
-      if (words.length > 125) {
+      if (count > 125) {
         alertDiv.textContent = "⚠️ Vous avez dépassé 125 mots.";
       } else {
         alertDiv.textContent = "";
