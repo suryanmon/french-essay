@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>French Essay Practice</title>
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <!-- ✅ Use stable EmailJS v3 library -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -53,7 +54,8 @@
   </form>
 
   <script>
-    emailjs.init('qQpxge7T4LewCp23A'); // Your public key
+    // ✅ Initialize EmailJS with your public key
+    emailjs.init('qQpxge7T4LewCp23A');
 
     const form = document.getElementById('essayForm');
     const textarea = document.getElementById('essay');
@@ -70,7 +72,6 @@
 
       wordCount.textContent = `${count} mots`;
 
-      // Show alert only if word count exceeds 125
       if (count > 125) {
         alertDiv.textContent = "⚠️ Vous avez dépassé 125 mots.";
       } else {
@@ -90,8 +91,8 @@
         wordCount.textContent = '0 mots';
         alertDiv.textContent = '';
       }, function(error) {
-        alert('❌ Échec de l\'envoi. Réessayez.');
-        console.error(error);
+        alert('❌ Échec de l\'envoi. Détails dans la console.');
+        console.error('EmailJS Error:', error);
       });
     });
   </script>
