@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>French Essay Practice</title>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <style>
     body {
-      font-family: Arial;
+      font-family: Arial, sans-serif;
       max-width: 600px;
       margin: auto;
       padding: 20px;
@@ -15,6 +16,11 @@
       height: 300px;
       margin-bottom: 10px;
     }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+    }
     .counter {
       font-weight: bold;
       margin-bottom: 10px;
@@ -22,20 +28,26 @@
     .alert {
       color: red;
     }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
   <h2>Écrivez votre essai en français (125 mots)</h2>
-  <form action="https://formspree.io/f/your_form_id" method="POST" id="essayForm">
-    <textarea name="essay" id="essay" placeholder="Tapez ici..."></textarea>
+  <form id="essayForm">
+    <input type="text" id="from_name" name="from_name" placeholder="Votre nom" required>
+    <textarea name="essay" id="essay" placeholder="Tapez ici..." required></textarea>
     <div class="counter" id="wordCount">0 mots</div>
     <div class="alert" id="alert"></div>
-    <input type="hidden" name="_subject" value="New French Essay Submission">
-    <input type="hidden" name="_cc" value="suryenn.1995@gmail.com">
     <button type="submit">Soumettre</button>
   </form>
 
   <script>
+    emailjs.init('qQpxge7T4LewCp23A'); // Your public key
+
+    const form = document.getElementById('essayForm');
     const textarea = document.getElementById('essay');
     const wordCount = document.getElementById('wordCount');
     const alertDiv = document.getElementById('alert');
@@ -49,6 +61,23 @@
       } else {
         alertDiv.textContent = "";
       }
+    });
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      emailjs.send('service_nha6cmm', 'template_essay', {
+        from_name: document.getElementById('from_name').value,
+        essay: textarea.value
+      }).then(function(response) {
+        alert('✅ Essai envoyé avec succès !');
+        form.reset();
+        wordCount.textContent = '0 mots';
+        alertDiv.textContent = '';
+      }, function(error) {
+        alert('❌ Échec de l\'envoi. Réessayez.');
+        console.error(error);
+      });
     });
   </script>
 </body>
