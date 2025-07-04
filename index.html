@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>French Essay Practice</title>
+  <style>
+    body {
+      font-family: Arial;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 300px;
+      margin-bottom: 10px;
+    }
+    .counter {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .alert {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>Écrivez votre essai en français (125 mots)</h2>
+  <form action="https://formspree.io/f/your_form_id" method="POST" id="essayForm">
+    <textarea name="essay" id="essay" placeholder="Tapez ici..."></textarea>
+    <div class="counter" id="wordCount">0 mots</div>
+    <div class="alert" id="alert"></div>
+    <input type="hidden" name="_subject" value="New French Essay Submission">
+    <input type="hidden" name="_cc" value="suryenn.1995@gmail.com">
+    <button type="submit">Soumettre</button>
+  </form>
+
+  <script>
+    const textarea = document.getElementById('essay');
+    const wordCount = document.getElementById('wordCount');
+    const alertDiv = document.getElementById('alert');
+
+    textarea.addEventListener('input', () => {
+      const words = textarea.value.trim().split(/\s+/).filter(Boolean);
+      wordCount.textContent = `${words.length} mots`;
+
+      if (words.length !== 125) {
+        alertDiv.textContent = "⚠️ L'essai doit contenir exactement 125 mots (ceci n'empêche pas la soumission)";
+      } else {
+        alertDiv.textContent = "";
+      }
+    });
+  </script>
+</body>
+</html>
