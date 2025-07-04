@@ -11,15 +11,11 @@
       margin: auto;
       padding: 20px;
     }
-    textarea {
+    textarea, input[type="text"] {
       width: 100%;
-      height: 300px;
+      padding: 10px;
       margin-bottom: 10px;
-    }
-    input[type="text"] {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
+      font-size: 16px;
     }
     .counter {
       font-weight: bold;
@@ -31,11 +27,12 @@
     button {
       padding: 10px 20px;
       font-size: 16px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <h2>Écrivez votre essai en français (125 mots)</h2>
+  <h2>Écrivez votre essai en français (max. 125 mots)</h2>
   <form id="essayForm">
     <input type="text" id="from_name" name="from_name" placeholder="Votre nom" required>
     <textarea name="essay" id="essay" placeholder="Tapez ici..." required></textarea>
@@ -56,8 +53,9 @@
       const words = textarea.value.trim().split(/\s+/).filter(Boolean);
       wordCount.textContent = `${words.length} mots`;
 
-      if (words.length !== 125) {
-        alertDiv.textContent = "⚠️ L'essai doit contenir exactement 125 mots (ceci n'empêche pas la soumission)";
+      // Show alert only if word count exceeds 125
+      if (words.length > 125) {
+        alertDiv.textContent = "⚠️ Vous avez dépassé 125 mots.";
       } else {
         alertDiv.textContent = "";
       }
